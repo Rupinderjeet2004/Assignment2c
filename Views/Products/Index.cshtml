@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ProtonComputers.Models.Products>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1>Products</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Manufacturers)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Manufacturers.ManufacturerID)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <p>
+                            <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                        </p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
